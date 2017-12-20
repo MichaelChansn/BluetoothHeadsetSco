@@ -35,6 +35,8 @@ public abstract class AbsBluetoothHeadset extends Headset {
     /** 是否已经启动SCO切换 */
     private boolean mIsStartDetect;
     
+    
+    
     public AbsBluetoothHeadset(Context context) {
         super(context);
         mIsScoOn = (mAudioManager != null && mAudioManager.isBluetoothScoOn());
@@ -70,6 +72,7 @@ public abstract class AbsBluetoothHeadset extends Headset {
                         listener.onBluetoothHeadsetConnected();
                     }
                 }
+                startDetect();
             
             } else if (state == BluetoothHeadset.STATE_DISCONNECTED) {
                 if (mHeadsetStateChangeListeners != null) {
@@ -77,6 +80,7 @@ public abstract class AbsBluetoothHeadset extends Headset {
                         listener.onBluetoothHeadsetDisconnected();
                     }
                 }
+                stopDetect();
                 mConnectedHeadset = null;
                 mBluetoothSetOn = false;
             }
@@ -90,6 +94,7 @@ public abstract class AbsBluetoothHeadset extends Headset {
                         listener.onBluetoothHeadsetDisconnected();
                     }
                 }
+                stopDetect();
                 mConnectedHeadset = null;
                 mBluetoothSetOn = false;
                 mIsScoOn = false;
@@ -180,6 +185,7 @@ public abstract class AbsBluetoothHeadset extends Headset {
                     if (DEBUG) {
                         Log.d(TAG, "detect thread tick");
                     }
+    
                     if (isSupportBluetooth()
                             && isBluetoothSetOn()
                             && isSupportScoMode()

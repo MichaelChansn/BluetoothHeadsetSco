@@ -81,6 +81,9 @@ public class BluetoothHeadsetV2 extends AbsBluetoothHeadset {
                 List<BluetoothDevice> devices = mBluetoothHeadset.getConnectedDevices();
                 if (devices.size() > 0) {
                     mConnectedHeadset = devices.get(0);
+                    if (isBluetoothSetScoOn()) {
+                        stopScoMode();
+                    }
                 }
             }
             
