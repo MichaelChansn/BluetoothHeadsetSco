@@ -14,6 +14,7 @@ import android.bluetooth.BluetoothProfile;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.media.AudioManager;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -82,7 +83,8 @@ public class BluetoothHeadsetV2 extends AbsBluetoothHeadset {
                 if (devices.size() > 0) {
                     mConnectedHeadset = devices.get(0);
                     if (isBluetoothSetScoOn()) {
-                        stopScoMode();
+//                        stopScoMode();
+                        mAudioManager.setMode(AudioManager.MODE_IN_COMMUNICATION);
                     }
                 }
             }
